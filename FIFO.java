@@ -20,8 +20,12 @@ public class FIFO extends ReplacementAlgorithm {
     public FIFO(int pageFrameCount) {
         super(pageFrameCount);
         maxFrameCount = pageFrameCount;
-        //list = new ArrayList<>(frameCountMax);
         list = new ArrayList<>();
+    }
+    
+    public void resetData(){
+        list.clear();
+        pageFaultCount = 0;
     }
 
     @Override
@@ -31,7 +35,7 @@ public class FIFO extends ReplacementAlgorithm {
             return;
         }
        
-        //If the list is full, remove the last page and push the new one in front
+        //If the list is full, remove the first/oldest page and push the incoming page to the last/newest index of the list
         if (list.size() >= maxFrameCount) {
             list.remove(0);
             list.add(pageNumber);
